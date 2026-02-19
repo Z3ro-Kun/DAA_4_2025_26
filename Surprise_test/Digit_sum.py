@@ -6,4 +6,4 @@ def superDigit(n, k):
         sum1+=n%10
         n//=10
     return superDigit(sum1, k)
-//i edited the main function to give sum of n * k as input in superDigit
+//i edited the main function to give (sum of digits of n) * k as input in superDigit
