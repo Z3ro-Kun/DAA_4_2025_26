@@ -32,9 +32,7 @@
 - Outer loop runs **k + 1 times**
 - Inner loop processes all flights → `E` edges  
 
-\[
-\text{Time Complexity} = O((k + 1) \times E) \approx O(kE)
-\]
+- Time complexity: O((k + 1) * E) ≈ O(kE)
 
 ---
 
@@ -42,9 +40,7 @@
 - Distance array of size `n`
 - Temporary array of size `n`
 
-\[
-\text{Space Complexity} = O(n)
-\]
+- Space Complexity: O(n)
 
 ---
 
