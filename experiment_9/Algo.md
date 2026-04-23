@@ -1,65 +1,54 @@
-# Greedy Approximation Algorithm for Minimum Subset Sum Difference
+# DP Algorithm (Minimum Subset Sum Difference)
 
 ## Idea
 
-Divide the array into two subsets by always assigning the next largest element to the subset with the smaller current sum.
+Find a subset whose sum is as close as possible to half of the total sum.
 
 ---
 
 ## Steps
 
-1. Sort the array in **descending order**
-2. Initialize two subsets:
+1. Compute total sum `S`
+2. Set target = `S // 2`
+3. Create a DP array `dp` of size `target + 1`
 
-   * `set1 = []`, `sum1 = 0`
-   * `set2 = []`, `sum2 = 0`
-3. Iterate through each element `x` in the sorted array:
+   * `dp[i] = True` if subset sum `i` is achievable
+4. Initialize:
 
-   * If `sum1 <= sum2`:
+   * `dp[0] = True`
+5. For each element `num` in array:
 
-     * Add `x` to `set1`
-     * Update `sum1 += x`
-   * Else:
+   * Traverse `j` from `target` down to `num`
+   * Update:
 
-     * Add `x` to `set2`
-     * Update `sum2 += x`
-4. Compute the final difference:
-
-   * `difference = |sum1 - sum2|`
+     * `dp[j] = dp[j] OR dp[j - num]`
+6. Find the largest `s1 ≤ target` such that `dp[s1] == True`
+7. Answer = `S - 2 * s1`
 
 ---
 
 ## Pseudocode
 
-```
-function greedyPartition(arr):
-    sort arr in descending order
+```id="dp_algo_file"
+function minSubsetSumDifference(arr):
+    S = sum(arr)
+    target = S // 2
 
-    set1, set2 = empty lists
-    sum1, sum2 = 0, 0
+    dp = array of size (target + 1) filled with False
+    dp[0] = True
 
-    for x in arr:
-        if sum1 <= sum2:
-            set1.append(x)
-            sum1 += x
-        else:
-            set2.append(x)
-            sum2 += x
+    for num in arr:
+        for j from target down to num:
+            dp[j] = dp[j] OR dp[j - num]
 
-    return abs(sum1 - sum2)
+    for s1 from target down to 0:
+        if dp[s1] == True:
+            return S - 2 * s1
 ```
 
 ---
 
 ## Complexity
 
-* Time: **O(n log n)** (due to sorting)
-* Space: **O(n)**
-
----
-
-## Note
-
-* This is a **heuristic (approximation)** approach.
-* It does **not guarantee the optimal answer** for all inputs.
-* Works well in practice but can fail on certain edge cases.
+* Time: **O(n × S)**
+* Space: **O(S)**
